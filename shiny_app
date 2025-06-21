@@ -1,0 +1,22 @@
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Household Energy Forecast"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("temp", "Projected Summer Temp Increase:", min = 0, max = 10, value = 5)
+    ),
+    mainPanel(
+      plotOutput("predictionPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$predictionPlot <- renderPlot({
+    projected <- predict(lasso_model, newx = X * (1 + input$temp / 100))
+    hist(projected, main = "Projected Energy Usage", xlab = "Energy Usage (kWh)", col = "skyblue")
+  })
+}
+
+shinyApp(ui = ui, server = server)

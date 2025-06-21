@@ -1,0 +1,9 @@
+shiny
+ggplot2
+dplyr
+tidyr
+readr
+lubridate
+caret
+glmnet
+parquet
